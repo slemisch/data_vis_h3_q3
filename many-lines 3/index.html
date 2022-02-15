@@ -32,7 +32,7 @@
         h3{
             margin-left: 750px;
             margin-bottom: 0;
-            color: cornflowerblue;
+            /* color: cornflowerblue; */
 
         }
 
@@ -74,8 +74,9 @@
             Tom Brady has more playoff wins than any football "great" in history, by a lot.
         </h2>
         <h3>
-            Brady
+
         </h3>
+
 
         <svg width="1050px" height="1000px">
 
@@ -101,6 +102,7 @@
 
     let svg = d3.select("body")
         .select("svg")
+        .style("fill", "#FFFFFF")
 
     console.log(svg)
 
@@ -208,15 +210,26 @@
         .style("stroke", d => {
             if(d[0] == "BradTo00") {
                 return "#87ceeb"
-            } else {
-                return "#808080"
+            } 
+            if(d[0] == "ElwaJo00" | d[0] == "MontJo01" | d[0] =="BradTe00" | d[0] == "TarkFr00" | d[0] == "StarBa00") {
+                return "#000000"
+            }
+            if(d[0] == "RoetBe00" | d[0] == "RodgAa00" | d[0] == "FlacJo00" | d[0] == "MahoPa00" | d[0] == "WilsRu00"){
+                return "#87ceeb"
+            }
+            else {
+                return "#A9A9A9"
             }
         })
         .style("stroke-width", d => {
             if(d[0] == "BradTo00") {
                 return "5px"
-            } else {
-                return "1px"
+            } 
+            if(d[0] == "ElwaJo00" | d[0] == "MontJo01" | d[0] =="BradTe00" | d[0] == "TarkFr00" | d[0] == "StarBa00" | d[0] == "RoetBe00" | d[0] == "RodgAa00" | d[0] == "FlacJo00" | d[0] == "MahoPa00" | d[0] == "WilsRu00") {
+                return "1.5px"
+            }
+            else {
+                return "0.5px"
             }
         })
 
@@ -228,20 +241,36 @@
             .attr("y", d => y(d[1][d[1].length-1].playoff_wins))
             .attr("dx", 5)
             .text(d => d[0])
-            .style("fill", "black")
+            .style("fill", "none") 
+            
+        //     d => {
+        //     if(d[0] == "ElwaJo00")  {
+        //         return "black"
+        //     } else {
+        //         return "none"
+        //     }
+        // })
+     
+        
+        // filter function 
         
         let points = svg.append("g")
             .selectAll(".points")
             .data(grouped_data)
             .join("circle")
-            .attr("x", d => x(d[1][d[1].length-1].year))
-            .attr("y", d => y(d[1][d[1].length-1].playoff_wins))
+            .attr("cx", d => x(d[1][d[1].length-1].year))
+            .attr("cy", d => y(d[1][d[1].length-1].playoff_wins))
             .style("fill", "black")
-            .style("stroke", "#333333")
-            .style(d => d[0])
+            //.style("stroke", "#333333")
+            .attr("r", 1.1)
+            .style("fill", d => {
+            if(d[0] == "BradTo00"){
+                return "#87ceeb"
+            } else {
+                    return "#808080"
+                }
+            })
             
-    
-
 
         let baseline = svg.append("line")
         .attr("x1", margin.left)
@@ -250,6 +279,54 @@
         .attr("y2", y(0))
         .style("stroke", "black")
         .style("stroke-width", "2px")
+
+        Brady = svg.append("text")
+                .attr("class", "label")
+                .attr("x", 750)
+                .attr("y", 10)
+                .text("Brady")
+                .style("fill", "black")
+                .attr("font-size", 28)
+
+        Starr = svg.append("text")
+            .attr("class", "label")
+            .attr("x", 260)
+            .attr("y", 370)
+            .text("Starr")
+            .style("fill", "black")
+            .attr("font-size", 18)
+        
+        Tark = svg.append("text")
+            .attr("class", "label")
+            .attr("x", 330)
+            .attr("y", 394)
+            .text("Tarkenton")
+            .style("fill", "black")
+            .attr("font-size", 18)
+
+        Bradshaw = svg.append("text")
+            .attr("class", "label")
+            .attr("x", 360)
+            .attr("y", 300)
+            .text("Bradshaw")
+            .style("fill", "black")
+            .attr("font-size", 18)
+
+        Montana = svg.append("text")
+            .attr("class", "label")
+            .attr("x", 490)
+            .attr("y", 270)
+            .text("Montana")
+            .style("fill", "black")
+            .attr("font-size", 18)
+        
+        Elway = svg.append("text")
+            .attr("class", "label")
+            .attr("x", 550)
+            .attr("y", 300)
+            .text("Elway")
+            .style("fill", "black")
+            .attr("font-size", 18)
 
 
 
